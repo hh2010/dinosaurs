@@ -29,30 +29,6 @@ repos:
           "--strict-optional",
         ]
 
-  - repo: https://github.com/pocc/pre-commit-hooks
-    rev: v1.3.5
-    hooks:
-      - id: clang-format
-        args: ["--style=file", "-i"]
-        files: "\\.(cpp|hpp|h|c)$"
-        stages: [pre-commit]
-        always_run: false
-        pass_filenames: true
-
-  - repo: https://github.com/pocc/pre-commit-hooks
-    rev: v1.3.5
-    hooks:
-      - id: cppcheck
-        args:
-          - "--enable=all"
-          - "--check-level=exhaustive"
-          - "--inconclusive"
-          - "--language=c++"
-          - "-Iinclude"
-        files: "\\.(cpp|hpp|c)$"
-        stages: [pre-commit]
-        always_run: false
-
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.10.1
     hooks:
