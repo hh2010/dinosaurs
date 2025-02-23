@@ -36,3 +36,5 @@ ENV/
 *.pkl
 *.png
 *.csv
+*.log
+*.html
