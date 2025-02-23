@@ -1,0 +1,64 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        stages: [pre-commit, pre-push]
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint (dynamic)
+        entry: python -m pylint
+        language: system
+        types: [python]
+        args: ["--errors-only"]
+        files: "\\.py$"
+        stages: [pre-commit]
+        always_run: false
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        args: [
+          "--disallow-untyped-defs",
+          "--disallow-incomplete-defs",
+          "--ignore-missing-imports",
+          "--no-implicit-optional",
+          "--strict-optional",
+        ]
+
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: clang-format
+        args: ["--style=file", "-i"]
+        files: "\\.(cpp|hpp|h|c)$"
+        stages: [pre-commit]
+        always_run: false
+        pass_filenames: true
+
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: cppcheck
+        args:
+          - "--enable=all"
+          - "--check-level=exhaustive"
+          - "--inconclusive"
+          - "--language=c++"
+          - "-Iinclude"
+        files: "\\.(cpp|hpp|c)$"
+        stages: [pre-commit]
+        always_run: false
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+        name: isort
+        language: python
+        types: [python]
+        files: "\\.py$"
+        args: ["--profile=black"]
